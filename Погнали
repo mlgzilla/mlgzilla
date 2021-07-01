@@ -44,5 +44,6 @@ int main(){
 		fprintf(f_sort, "%d ", arr[i]);
 	}
 	free(arr);
+	printf("Массив был успешно отсортирован\n");
 	system("pause");
 }
