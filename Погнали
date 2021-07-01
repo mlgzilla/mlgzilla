@@ -1,1 +1,48 @@
-Залуперс
+#include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <locale.h>
+
+int main(){
+	srand(time(0));
+	setlocale (LC_ALL, "Russian");
+	int *arr;
+	int n, c, temp;
+	FILE *f_arr, *f_sort;
+	//////////////////////////////////////////////////////
+	printf("Введите размер массива: ");
+	scanf("%d", &n);
+	f_arr=fopen("arr.txt","w");
+	for(int i = 0; i < n; i++){
+		c = rand()%100;
+		fprintf(f_arr, "%d ", c);
+	}
+	printf("Массив был успешно сгенерирован\n");
+	fclose(f_arr);
+	//////////////////////////////////////////////////////
+	f_arr = fopen("arr.txt", "r");
+	arr = (int*)malloc(n * sizeof(int));
+	for(int i = 0; i < n; i++){
+		fscanf(f_arr, "%d", &arr[i]);
+	}
+	fclose(f_arr);
+	//////////////////////////////////////////////////////
+	f_sort=fopen("sort.txt", "w");
+	for(int s = n / 2; s > 0; s/=2){
+		for(int i = 0; i < n; i++){
+			for(int j = i + s; j < n; j+=s){
+				if(arr[i] > arr[j]){
+					temp = arr[j];
+					arr[j] = arr[i];
+					arr[i] = temp;
+				}
+			}
+		}
+	}
+	for(int i = 0; i < n; i++){
+		fprintf(f_sort, "%d ", arr[i]);
+	}
+	free(arr);
+	system("pause");
+}
